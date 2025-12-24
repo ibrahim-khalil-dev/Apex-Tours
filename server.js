@@ -9,20 +9,27 @@ const mongoose = require('mongoose');
 const app = require('./app');
 
 const DB = process.env.DATABASE.replace(
-  '<db_password>',
+  '<PASSWORD>',
   process.env.DATABASE_PASSWORD
 );
 
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
-    useUnifiedTopology: true, // Prevent deprecation warnings
-    useCreateIndex: true,
-    useFindAndModify: false,
+    useUnifiedTopology: true,
   })
-  .then(() => {
-    console.log('✅ Database connected successfully');
-  });
+  .then(() => console.log('✅ DB connection successful!'))
+  .catch((err) => console.log('❌ Database connection error:', err.message));
+// mongoose
+//   .connect(DB, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true, // Prevent deprecation warnings
+//     useCreateIndex: true,
+//     useFindAndModify: false,
+//   })
+//   .then(() => {
+//     console.log('✅ Database connected successfully');
+//   });
 
 const port = 3000;
 const server = app.listen(port, () => {

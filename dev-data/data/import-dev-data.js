@@ -7,7 +7,7 @@ const User = require('./../../Models/userModel');
 const Review = require('./../../Models/reviewModel');
 
 const DB = process.env.DATABASE.replace(
-  '<db_password>',
+  '<PASSWORD>',
   process.env.DATABASE_PASSWORD
 );
 
@@ -24,17 +24,17 @@ mongoose
 
 // read tours json data
 const tours = JSON.parse(fs.readFileSync('dev-data/data/tours.json', 'utf-8'));
-//const users = JSON.parse(fs.readFileSync('dev-data/data/users.json', 'utf-8'));
-//const reviews = JSON.parse(
-  //fs.readFileSync('dev-data/data/reviews.json', 'utf-8')
-//);
+const users = JSON.parse(fs.readFileSync('dev-data/data/users.json', 'utf-8'));
+const reviews = JSON.parse(
+  fs.readFileSync('dev-data/data/reviews.json', 'utf-8')
+);
 
 // import tours data in the the database
 const importData = async () => {
   try {
     await Tour.create(tours);
-   // await User.create(users);
-    //await Review.create(reviews);
+     await User.create(users,{ validateBeforeSave: false });
+    await Review.create(reviews);
     console.log('Data add in the database');
   } catch (err) {
     console.log(err);

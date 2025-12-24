@@ -4,7 +4,7 @@ const tourController = require('./../controller/tourController');
 const authController = require('./../controller/authController');
 const reviewRouter = require('./reviewRoutes');
 
-// router 
+// router
 //   .route('/:tourId/reviews')
 //   .post(
 //     authController.protect,
@@ -38,7 +38,10 @@ router
 // /tours-within/233/center/34.01327184803305, 72.32577315846709/unit/mi
 router
   .route('/')
-  .get(authController.protect, tourController.getAllTours)
+  .get(
+    // ,authController.protect
+    tourController.getAllTours
+  )
   .post(tourController.createTour);
 router
   .route('/:id')
